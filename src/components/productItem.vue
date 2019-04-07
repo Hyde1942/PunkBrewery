@@ -11,7 +11,10 @@
              <p>{{beer.brewers_tips}}</p>
              <ul>
                 <li v-for="(food, i) in beer.food_pairing" :key="i">{{food}}</li>
-            </ul>                
+            </ul>
+            <p>QTY: {{beer.qty}}</p> 
+            <input type="number" min="1" :max="beer.qty"/>
+            <button @click="addToCart">Buy Beer!</button>        
            </div>
        </div>
     </div>
@@ -19,10 +22,18 @@
 
 
 <script>
+
 export default {
     props:['stock'],
     data() {
-        return {}
+        return { 
+          shoppingList: [],
+          purchaseQTY:0
+        }
+    },methods: {
+        addToCart () {
+           
+        }
     },
 }
 </script>

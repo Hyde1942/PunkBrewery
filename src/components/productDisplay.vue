@@ -6,33 +6,44 @@
 
 
 <script>
-import displayItems from './displayItems.vue';
+import productItem from './productItem.vue';
 export default {
     data() {
         return { 
             store:{
-                beerStock: []
+                beerStock: [],
+                stash:{
+                    min:6,
+                    max:12
+                }
             }  
         }
     },
     components:{
-        'display-items' : displayItems
+        'display-items' : productItem
     },
     computed: {
         
     },
+    methods: {
+        randomNumber () {
+            return Math.floor(Math.random() * (this.store.stash.max - this.store.stash.min + 1)) + this.store.stash.min;
+        }
+    },
     created() {
         console.log('component created');
-        const url = 'https://api.punkapi.com/v2/beers?page=10&per_page=10';
+        let page = this.randomNumber(), per_page = this.randomNumber() * 2;
+        const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${per_page}`;
         axios.get(url).then(r => {
-
-            this.store.beerStock = r.data;
+            let stash = r.data.map(beer =>{
+                return Object.assign({qty:this.randomNumber()},beer); 
+            });
+            this.store.beerStock = stash;
+            console.log('Stock: ', this.store.beerStock);
         });
-     console.log('Beers Loaded');
-     console.log(this.store.beerStock)
     },
     mounted() {
-        console.log('component Mounted');
+        
     },
     updated() {
         console.log('Component Updated');
