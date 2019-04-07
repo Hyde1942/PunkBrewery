@@ -12,9 +12,9 @@
              <ul>
                 <li v-for="(food, i) in beer.food_pairing" :key="i">{{food}}</li>
             </ul>
-            <p>QTY: {{beer.qty}}</p> 
-            <input type="number" min="1" :max="beer.qty"/>
-            <button @click="addToCart">Buy Beer!</button>        
+            <p>QTY: <span>{{beer.qty}}</span></p> 
+            <input  @click="addToCart(beer.name,addToCartQty)"  type="number" min="1" :max="beer.qty"/>
+            <button @click="purchaseBeer">Buy Beer!</button>        
            </div>
        </div>
     </div>
@@ -28,10 +28,13 @@ export default {
     data() {
         return { 
           shoppingList: [],
-          purchaseQTY:0
+          addToCartQty:0
         }
     },methods: {
-        addToCart () {
+        addToCart (item,qty) {
+         
+        },
+        purchaseBeer (){
            
         }
     },
