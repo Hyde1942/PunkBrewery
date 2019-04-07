@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="App" class="liquor-store-wrapper">
+   <header-section></header-section>
+   <main>
+     <products-section></products-section>
+   </main>
+   <footer-section></footer-section>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import header from './components/header.vue';
+import nav from './components/navbar.vue';
+import footer from './components/footer.vue';
+import products from './components/productDisplay.vue';
+
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  data() {
+     return {
+        string: 'Liquor Store'
+    }
+  },
+  components:{
+    'header-section': header,
+    'nav-bar': nav,
+    'footer-section': footer,
+    'products-section': products
   }
+
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+ body {
+   background:black;
+   margin: 0;
+ }
 </style>
