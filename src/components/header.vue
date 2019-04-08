@@ -33,4 +33,10 @@ export default {
         border-bottom: 8px solid black;
         text-shadow: -4px 3px 0px black;
     }
+
+    @media screen and (max-width: 767px) {
+        header h1 {
+            font-size: 2em;
+        }
+    }
 </style>

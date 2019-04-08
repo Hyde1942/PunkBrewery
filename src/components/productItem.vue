@@ -63,7 +63,7 @@ export default {
 .beers .img-wrapper-outer {
     width: 20%;
     text-align: center;
-    background-color: cyan;
+    background-color: rgb(31, 229, 255);
     overflow: hidden;
     padding:2em;
 }
@@ -80,17 +80,35 @@ export default {
 
 .beers .product-description {
     width:80%;
-    background-color: darkmagenta;
+    background-color:black;
     color:white;
-    text-shadow: -2px 1px 0px black;
     padding:2em;
 }
 .beers h2 { 
-    font-family: 'Signika', sans-serif;
+    font-size: 2em;
+    font-family: 'Aclonica', sans-serif;
+    color:purple;
 }
 .beers p, .beers ul {
     font-family: 'Cuprum', sans-serif;
     font-size: 1.5em;
+}
+
+
+@media screen and (max-width: 767px) {
+    .beers {
+        flex-wrap: wrap;
+    }
+    .beers .img-wrapper-outer {
+        width: 100%;
+    }
+    .beers .img-wrapper-inner {
+        width:25%;
+    }
+    .beers .product-description {
+        width: 100%;
+        padding: 1em;
+    }
 }
 
 </style>
