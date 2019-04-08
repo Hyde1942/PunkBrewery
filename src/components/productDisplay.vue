@@ -18,16 +18,31 @@ export default {
                     min:6,
                     max:12
                 }
-            }  
+            },
+            empty: false  
         }
     },
     components:{
         'display-items' : productItem
     },
-    computed: {
-        
+    watch: {
+     empty () {
+         this.fetchBeers();
+         this.empty = false;
+     }   
     },
     methods: {
+
+        fetchBeers (){
+            let page = this.randomNumber(), per_page = this.randomNumber() * 2;
+            const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${per_page}`;
+            axios.get(url).then(r => {
+            let stash = r.data.map(beer =>{
+                return Object.assign({qty:this.randomNumber()},beer); 
+            });
+            this.store.beerStock = stash;
+        });
+        },
         randomNumber () {
             return Math.floor(Math.random() * (this.store.stash.max - this.store.stash.min + 1)) + this.store.stash.min;
         },
@@ -61,19 +76,15 @@ export default {
 
             if (removeItemStock >= 0) {
                 this.store.beerStock.splice(removeItemStock,1);
+                if (this.store.beerStock.length === 0){
+                    this.empty = true;
+                }
             }
         }
     },
     created() {
         console.log('component created');
-        let page = this.randomNumber(), per_page = this.randomNumber() * 2;
-        const url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${per_page}`;
-        axios.get(url).then(r => {
-            let stash = r.data.map(beer =>{
-                return Object.assign({qty:this.randomNumber()},beer); 
-            });
-            this.store.beerStock = stash;
-        });
+        this.fetchBeers();
     },
     mounted() {
 
