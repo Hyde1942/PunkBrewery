@@ -1,8 +1,7 @@
 <template>
     <div>
-        <button @click="add">+</button>
-        <span>{{counter}}</span>
-        <button @click="remove">-</button>
+        <input v-model="beerQty" @keyup.enter="checkInput" value="beerQty"  type="number" min="0" :max="inStockQty"/>
+        <button v-show="beerQty > 0" @click="addToCart(item,beerQty)">Add To Cart</button>
     </div>
 </template>
 
@@ -10,19 +9,34 @@
 export default {
     data() {
         return {
-            counter: 0
+            beerQty: 0,
+            shoppingList: {
+                name: '',
+                 qty: 0,
+                 orderID:''
+            }
         }
     },
-    props:{
-
+    props: {
+        inStockQty: Number,
+        item: String
     },
     methods: {
-        add(){
-            return this.counter++
-        },
-        remove (){
-            return  this.counter > 0 ? this.counter-- : 0;
-        }
+     addToCart(item, qty){
+         if (this.beerQty > this.inStockQty) {
+             return false;
+         }else {
+            this.shoppingList.name = item;
+            this.shoppingList.qty = qty;
+            this.$emit('shopList',this.shoppingList);
+            this.beerQty = 0;
+         }
+     },
+     checkInput() {
+       if (this.beerQty > this.inStockQty) {
+           return false;
+       }
+     }
     },
     computed: {
         
